@@ -55,10 +55,10 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+    " \ 'branch': 'next',
+    " \ 'do': 'bash install.sh',
+    " \ }
 Plug 'ncm2/ncm2'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'stevearc/vim-arduino'
@@ -82,6 +82,8 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Chiel92/vim-autoformat'
 Plug 'RRethy/vim-illuminate'
+Plug 'neovim/nvim-lsp'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 call plug#end()
 
 colorscheme wal
@@ -105,7 +107,7 @@ augroup vimrc
     autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
     " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-    autocmd FileType * call LC_maps()
+    " autocmd FileType * call LC_maps()
     autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
     autocmd BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
     autocmd FileType which_key set laststatus=0 noshowmode noruler foldcolumn=0
@@ -217,19 +219,35 @@ nmap <Leader>t :TagbarToggle<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
-" Plugin 'LanguageClient-neovim'
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
-    \ }
-function! LC_maps()
-    if has_key(g:LanguageClient_serverCommands, &filetype)
-        nnoremap <buffer> <F5> :call LanguageClient_contextMenu()<CR>
-        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <buffer> <Leader>y :call LanguageClient#textDocument_formatting()<CR>
-    endif
-endfunction
+" " Plugin 'LanguageClient-neovim'
+" let g:LanguageClient_serverCommands = {
+"     \ 'python': ['pyls'],
+"     \ }
+" function! LC_maps()
+"     if has_key(g:LanguageClient_serverCommands, &filetype)
+"         nnoremap <buffer> <F5> :call LanguageClient_contextMenu()<CR>
+"         nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+"         nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"         nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"         nnoremap <buffer> <Leader>y :call LanguageClient#textDocument_formatting()<CR>
+"     endif
+" endfunction
+
+" Plugin 'nvim-lsp'
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+
+augroup lspautocmd
+    autocmd!
+    " Use LSP omni-completion in Python files.
+    autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+augroup END
 
 " Plugin 'vim-fugitive'
 nmap <Leader>gc :Gcommit<CR>
@@ -349,3 +367,21 @@ let g:which_key_map.l.p = 'prompt-python'
 let g:which_key_map.l.g = 'prompt-all'
 
 let g:which_key_map.g = { 'name' : '+git' }
+
+lua << EOF
+require'nvim_lsp'.pyls.setup{}
+EOF
+
+" Plug markdown-preview
+nmap <Leader>md <Plug>MarkdownPreviewToggle
+
+function! OpenMarkdownPreview(url)
+    silent execute "!chromium --app=" . a:url
+endfunction
+" a custom vim function name to open preview page
+" this function will receive url as param
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
