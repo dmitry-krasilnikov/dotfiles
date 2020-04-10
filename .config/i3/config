@@ -1,0 +1,237 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $focused i3wm.color3 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $focused     $focused     $fg  $focused       $focused
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+# start compositor
+exec_always --no-startup-id "~/.bin/picom.sh &"
+
+exec_always --no-startup-id "~/.bin/dunst.sh &"
+
+exec_always --no-startup-id "dropbox &"
+
+# (No) Title Bars
+for_window [class="^.*"] border pixel 0
+
+# Gaps
+gaps inner 8
+smart_gaps inverse_outer
+mouse_warping none
+focus_follows_mouse no
+
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Helvetica Neue, FontAwesome 11
+ 
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+# bindcode $mod+36 exec i3-sensible-terminal
+bindcode $mod+36 exec st
+
+# kill focused window
+bindcode $mod+Shift+24 kill
+
+# rofi
+bindsym $mod+w exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu '
+
+bindsym $mod+Shift+e exec ~/.rofi/edit-configs.sh
+
+# mark/goto window
+bindsym $mod+m exec i3-input -P "mark: " -F "mark %s"
+# 48 - apostrophe
+bindcode $mod+48 exec i3-input -P "goto mark: " -F "[con_mark=\"%s\"] focus"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindcode $mod+113 focus left
+bindcode $mod+116 focus down
+bindcode $mod+111 focus up
+bindcode $mod+114 focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindcode $mod+Shift+113 move left
+bindcode $mod+Shift+116 move down
+bindcode $mod+Shift+111 move up
+bindcode $mod+Shift+114 move right
+
+# split in horizontal orientation
+bindsym $mod+z split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+d layout toggle splith splitv tabbed
+
+# toggle tiling / floating
+bindcode $mod+Shift+65 floating toggle
+
+# change focus between tiling / floating windows
+bindcode $mod+65 focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindcode $mod+10 workspace 1
+bindcode $mod+11 workspace 2
+bindcode $mod+12 workspace 3
+bindcode $mod+13 workspace 4
+bindcode $mod+14 workspace 5
+bindcode $mod+15 workspace 6
+bindcode $mod+16 workspace 7
+bindcode $mod+17 workspace 8
+bindcode $mod+18 workspace 9
+bindcode $mod+19 workspace 10
+
+# move focused container to workspace
+bindcode $mod+Shift+10 move container to workspace 1
+bindcode $mod+Shift+11 move container to workspace 2
+bindcode $mod+Shift+12 move container to workspace 3
+bindcode $mod+Shift+13 move container to workspace 4
+bindcode $mod+Shift+14 move container to workspace 5
+bindcode $mod+Shift+15 move container to workspace 6
+bindcode $mod+Shift+16 move container to workspace 7
+bindcode $mod+Shift+17 move container to workspace 8
+bindcode $mod+Shift+18 move container to workspace 9
+bindcode $mod+Shift+19 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+i reload
+# r: restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+# bindcode $mod+Shift+26 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindcode $mod+Shift+26 exec "i3-msg exit"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindcode 113 resize shrink width 10 px or 10 ppt
+        bindcode 116 resize grow height 10 px or 10 ppt
+        bindcode 111 resize shrink height 10 px or 10 ppt
+        bindcode 114 resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindcode 36 mode "default"
+        bindcode 9 mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+exec_always setxkbmap -layout us,us,ru -variant colemak,basic,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps
+exec_always xcape -t 200
+
+set $mode_execute Open caStero, iPython, firefoX, neoVim, Nmtui, pulseMixer, Qutebrowser, Ranger
+mode "$mode_execute" {
+    bindsym s exec st -e castero, mode "default"
+    bindsym p exec st -e ipython, mode "default"
+    bindsym x exec firefox, mode "default"
+    bindsym v exec st -e nvim, mode "default"
+    bindsym n exec st -e nmtui, mode "default"
+    bindsym m exec st -e pulsemixer, mode "default"
+    bindsym q exec qutebrowser, mode "default"
+    bindsym r exec st -e ranger, mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode 36 mode "default"
+    bindcode 9 mode "default"
+}
+
+bindsym $mod+o mode "$mode_execute"
+# only .png pictures allowed
+set $Locker i3lock -euti "$(cat ~/.cache/wal/wal)" && sleep 1
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
+
+# TODO fix switching on i3 reloading
+bindsym $mod+Shift+c exec "~/.bin/picom.sh &"
+bindcode 232 exec "xbacklight -dec 10"
+bindcode 233 exec "xbacklight -inc 10"
+
+bindcode 122 exec "pulsemixer --change-volume -5"
+bindcode 123 exec "pulsemixer --change-volume +5"
+
+# screenshots
+bindsym Print exec scrot -u '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg
+bindsym --release Shift+Print exec "scrot -s '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg &"
+bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg &"
+
+exec_always --no-startup-id $HOME/.bin/polybar.sh
+exec_always --no-startup-id $HOME/.bin/xbanish.sh $mod
