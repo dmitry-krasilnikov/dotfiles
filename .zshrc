@@ -44,11 +44,12 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions systemd docker docker-compose autojump zsh-syntax-highlighting archlinux git vi-mode globalias)
+# plugins=(zsh-autosuggestions systemd docker docker-compose autojump zsh-syntax-highlighting archlinux git vi-mode globalias)
+plugins=(systemd docker docker-compose autojump archlinux git vi-mode globalias)
 
 # User configuration
 
-export PATH=$PATH:~/Development/flutter/bin:~/.bin:~/.local/bin:~/.venv/bin/
+export PATH=$PATH:~/Development/flutter/bin:~/.bin:~/.local/bin:~/.venv/bin/:~/.cargo/bin/
 
 source $ZSH/oh-my-zsh.sh
 
@@ -214,8 +215,12 @@ alias dhu=docker-host-unset
 alias ls="ls -lh --color"
 
 # Alternative (blocks terminal for 0-3ms)
-# cat ~/.cache/wal/sequences
-source ~/.cache/wal/colors.sh
+cat ~/.cache/wal/sequences
+# source ~/.cache/wal/colors.sh
+if [[ ! -v DISPLAY ]]
+then
+    wal -R
+fi
 
 autoload -U zmv
 
