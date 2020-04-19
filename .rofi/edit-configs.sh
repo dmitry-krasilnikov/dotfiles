@@ -11,14 +11,21 @@
 declare options=(" i3 
  polybar 
  st 
+ alacritty
  nvim 
+ fish
  zsh 
  quit ")
+
+# TODO figure out colors in alacritty and subsitute st with it
 
 choice=$(echo -e "${options[@]}" | rofi -dmenu -i -p 'Edit a config file')
 
 	if [ "$choice" == ' quit ' ]; then
             echo "Program terminated."
+	fi
+	if [ "$choice" == ' alacritty ' ]; then
+            exec st -e nvim ~/.config/alacritty/alacritty.yml
 	fi
 	if [ "$choice" == ' i3 ' ]; then
             exec st -e nvim ~/.config/i3/config
@@ -34,4 +41,7 @@ choice=$(echo -e "${options[@]}" | rofi -dmenu -i -p 'Edit a config file')
 	fi
 	if [ "$choice" == ' zsh ' ]; then
             exec st -e nvim ~/.zshrc
+	fi
+	if [ "$choice" == ' fish ' ]; then
+            exec st -e nvim ~/.config/fish/config.fish
 	fi
