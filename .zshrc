@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/usr/share/oh-my-zsh
 export ZSH_CUSTOM=~/.oh-my-zsh
+export ZSH_CACHE_DIR=~/.cache/zsh
 
 setopt histignorealldups
 
@@ -8,11 +9,6 @@ setopt histignorealldups
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="random"
-# ZSH_THEME="gnzh"
-# ZSH_THEME="dstufft"
-# ZSH_THEME="refined"
-# ZSH_THEME="strug"
 ZSH_THEME="custom"
 
 DEFAULT_USER="fox"
@@ -44,14 +40,18 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(zsh-autosuggestions systemd docker docker-compose autojump zsh-syntax-highlighting archlinux git vi-mode globalias)
-plugins=(systemd docker docker-compose autojump archlinux git vi-mode globalias)
+plugins=(python systemd docker docker-compose autojump archlinux git vi-mode globalias)
+
+source $ZSH/oh-my-zsh.sh
+
+source /usr/share/zsh/share/antigen.zsh
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen apply
 
 # User configuration
 
 export PATH=$PATH:~/Development/flutter/bin:~/.bin:~/.local/bin:~/.venv/bin/:~/.cargo/bin/
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
