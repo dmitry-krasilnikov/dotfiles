@@ -25,6 +25,7 @@ set undofile
 set clipboard^=unnamedplus
 set foldmethod=indent
 set noshowmode
+set fileencodings=ucs-bom,utf-8,default,cp1251,latin1
 
 " set ripgrep as external grep tool
 set grepprg=rg\ --vimgrep\ -S\ $*
@@ -369,7 +370,12 @@ let g:which_key_map.l.g = 'prompt-all'
 let g:which_key_map.g = { 'name' : '+git' }
 
 lua << EOF
-require'nvim_lsp'.pyls.setup{}
+require'nvim_lsp'.pyls.setup{
+  cmd = { "pipenv", "run", "pyls" }
+}
+require'nvim_lsp'.dartls.setup{
+    cmd = { "dart", "/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp" }
+}
 EOF
 
 " Plug markdown-preview

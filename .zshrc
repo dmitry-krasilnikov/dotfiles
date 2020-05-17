@@ -40,7 +40,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(python systemd docker docker-compose autojump archlinux git vi-mode globalias)
+plugins=(systemd docker docker-compose autojump archlinux git vi-mode globalias)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,7 +51,7 @@ antigen apply
 
 # User configuration
 
-export PATH=$PATH:~/Development/flutter/bin:~/.bin:~/.local/bin:~/.venv/bin/:~/.cargo/bin/
+export PATH=~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/:~/.cargo/bin/
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -89,6 +89,7 @@ alias drive_sync_dry='rclone -n --include-from .rclone_include --exclude "*" syn
 alias drive_sync='rclone --include-from .rclone_include --exclude "*" sync /home/fox drive:backup'
 
 alias vi=nvim
+alias cvi='nvim -u ~/.config/nvim/coc-init.vim'
 
 awkp() {
     awk 'NR=='$1'{print $'$2'}'
