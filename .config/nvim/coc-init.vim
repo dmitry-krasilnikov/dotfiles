@@ -1,4 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'vimwiki/vimwiki'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
@@ -49,6 +52,9 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
+" Plugin 'vimwiki'
+let g:vimwiki_list = [{'auto_tags': 1}]
+
 let mapleader = ","
 
 map Y y$
@@ -56,7 +62,9 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
 nnoremap <leader><C-e> :e ~/.config/nvim/coc-init.vim<cr>
-nnoremap <Leader>s :up<CR>
+nnoremap <leader><C-s> :CocConfig<cr>
+nnoremap <leader><C-l> :CocLocalConfig<cr>
+nnoremap <Leader>ss :up<CR>
 
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -169,16 +177,46 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <space>f  <Plug>(coc-format-selected)
+nmap <space>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+augroup vimrc
+    autocmd!
+    autocmd TermOpen * setlocal foldcolumn=0 number relativenumber
+    autocmd TermOpen * startinsert
+    autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+    " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    " autocmd FileType * call LC_maps()
+    autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+    autocmd BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
+    autocmd FileType which_key set laststatus=0 noshowmode noruler foldcolumn=0
+        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler foldcolumn=4
+    autocmd FileType fzf set nonu nornu
+    " TODO make it save only files with names or save them automatically to a
+    " temp dir; also save on buf leave (most probably)
+    " autocmd CursorHold,CursorHoldI * update
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup END
+
+" Plugin 'fzf.vim'
+nmap <Leader>fb :Buffers<CR>
+nmap <Leader>/  :BLines<CR>
+nmap <Leader>fg :GFiles<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>fs :GFiles?<CR>
+nmap <Leader>fc :Rg<cr>class (<Left>
+nmap <Leader>fd :Rg<cr>def (<Left>
+nmap <Leader>fr :Rg<cr>
+nmap <Leader>mk :Marks<CR>
+nmap <Leader>mp :Maps<CR>
+nmap <Leader>fcd :Commands<CR>
+nmap <Leader>fct :Commits<CR>
+nmap <Leader>fhc :History:<CR>
+nmap <Leader>fhs :History/<CR>
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
