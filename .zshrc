@@ -217,7 +217,7 @@ alias ls="ls -lh --color"
 
 # Alternative (blocks terminal for 0-3ms)
 cat ~/.cache/wal/sequences
-# source ~/.cache/wal/colors.sh
+source ~/.cache/wal/colors.sh
 if [[ ! -v DISPLAY ]]
 then
     wal -R

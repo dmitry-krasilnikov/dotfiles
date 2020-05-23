@@ -4,8 +4,18 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'Chiel92/vim-autoformat'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/graphviz.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'chrisbra/Colorizer'
 call plug#end()
 
 colorscheme wal
@@ -57,6 +67,36 @@ let g:vimwiki_list = [{'auto_tags': 1}]
 
 let mapleader = ","
 
+"Plugin 'auto-pairs'
+let g:AutoPairsFlyMode = 1
+
+" Plugin 'vim-fugitive'
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gp :Gpush<CR>
+nmap <Leader>gf :Gfetch<CR>
+nmap <Leader>gmm :Gmerge origin/master<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gw :Gwrite<CR>
+nmap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gdh :diffget //2<CR>
+nnoremap <Leader>gdl :diffget //3<CR>
+
+" Plug markdown-preview
+nmap <Leader>md <Plug>MarkdownPreviewToggle
+
+function! OpenMarkdownPreview(url)
+    silent execute "!chromium --app=" . a:url
+endfunction
+" a custom vim function name to open preview page
+" this function will receive url as param
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
+
+" Mappings
 map Y y$
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -208,7 +248,7 @@ nmap <Leader>/  :BLines<CR>
 nmap <Leader>fg :GFiles<CR>
 nmap <Leader>ff :Files<CR>
 nmap <Leader>fs :GFiles?<CR>
-nmap <Leader>fc :Rg<cr>class (<Left>
+nmap <Leader>fc :Rg<cr>class :<Left>
 nmap <Leader>fd :Rg<cr>def (<Left>
 nmap <Leader>fr :Rg<cr>
 nmap <Leader>mk :Marks<CR>
