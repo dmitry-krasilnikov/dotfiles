@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wal --iterative -a "$@" -i ~/wallpapers/ -o "$HOME/.bin/gen_alacritty.sh" && polybar.sh

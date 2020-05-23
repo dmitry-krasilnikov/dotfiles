@@ -174,7 +174,7 @@ font:
 colors:
   # Default colors
   primary:
-   background: '#0F1419'
+   background: '${BACKGROUND}'
   #  foreground: '#eaeaea'
 
     # Bright and dim foreground colors
@@ -278,7 +278,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.75
+background_opacity: ${BACKGROUND_OPACITY}
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
