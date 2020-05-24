@@ -12,9 +12,10 @@ config.bind('<z><p><l>', qute_pass + ' --password-only')
 config.bind('<z><o><l>', qute_pass + ' --otp-only')
 
 config.set('url.searchengines', {
-    'DEFAULT': 'https://www.ecosia.org/search?q={}',
+    'DEFAULT': 'https://www.google.com/search?q={}',
     'go': 'https://www.google.com/search?q={}',
     'dd': 'https://duckduckgo.com/?q={}',
+    'ec': 'https://www.ecosia.org/search?q={}',
 })
 
 config.source('qutewal.py')
