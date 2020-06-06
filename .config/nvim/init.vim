@@ -1,9 +1,31 @@
-" TODO try to set up :make for pylint/isort in Docker
-" TODO try remapping mapleader to <Space> & ',' to maplocalleader (for filetype plugins)
-" TODO check that Startify does not prevent languageserver from working
-" TODO find a way to autoload project specific .nvimrc
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'vimwiki/vimwiki'
+" Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf.vim'
+" Plug 'dylanaraps/wal.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'Chiel92/vim-autoformat'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/graphviz.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'chrisbra/Colorizer'
+Plug 'axelf4/vim-strip-trailing-whitespace'
+Plug 'sainnhe/sonokai'
+call plug#end()
 
+set termguicolors
+
+" TextEdit might fail if hidden is not set.
 set hidden
+
 set expandtab
 set shiftwidth=4
 set shiftround
@@ -16,8 +38,6 @@ set smartindent
 set nohlsearch
 set shell=/bin/zsh
 set wrap
-" wal cannot work with that
-" set termguicolors
 set inccommand=split
 set exrc
 set secure
@@ -27,97 +47,76 @@ set foldmethod=indent
 set noshowmode
 set fileencodings=ucs-bom,utf-8,default,cp1251,latin1
 
-" set ripgrep as external grep tool
-set grepprg=rg\ --vimgrep\ -S\ $*
-set grepformat=%f:%l:%c:%m
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 
-let g:startify_session_persistence = 1
-let g:startify_lists = [
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
+" Give more space for displaying messages.
+set cmdheight=2
 
-" Specify a directory for plugins
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.local/share/nvim/plugged')
-" check whether it's needed
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-" Plug 'autozimu/LanguageClient-neovim', {
-    " \ 'branch': 'next',
-    " \ 'do': 'bash install.sh',
-    " \ }
-Plug 'ncm2/ncm2'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'stevearc/vim-arduino'
-Plug 'thanthese/Tortoise-Typing'
-Plug 'chrisbra/Colorizer'
-Plug 'dylanaraps/wal.vim'
-Plug 'kana/vim-textobj-user'
-Plug 'bps/vim-textobj-python'
-" Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-dispatch'
-Plug 'janko/vim-test'
-Plug '5long/pytest-vim-compiler'
-Plug 'vimwiki/vimwiki'
-Plug 'kalekundert/vim-coiled-snake'
-Plug 'jpalardy/vim-slime'
-Plug 'tpope/vim-salve'
-Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-fireplace'
-Plug 'liuchengxu/vim-which-key'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'jiangmiao/auto-pairs'
-Plug 'Chiel92/vim-autoformat'
-Plug 'RRethy/vim-illuminate'
-Plug 'neovim/nvim-lsp'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-call plug#end()
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
-colorscheme wal
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
-" substitution for ',' because of the 'vim-which-key' plugin blocks it
-nnoremap ,, ,
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" the configuration options should be placed before `colorscheme sonokai`
+let g:sonokai_style = 'maia'
+let g:sonokai_enable_italic = 1
+" let g:sonokai_disable_italic_comment = 1
+let g:sonokai_transparent_background = 1
+colorscheme sonokai
+
+let g:airline_theme = 'sonokai'
+
+" Plugin 'vimwiki'
+let g:vimwiki_list = [{'auto_tags': 1}]
 
 let mapleader = ","
-call which_key#register(',', "g:which_key_map")
+
+"Plugin 'auto-pairs'
+let g:AutoPairsFlyMode = 1
+
+" Plugin 'vim-fugitive'
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gp :Gpush<CR>
+nmap <Leader>gf :Gfetch<CR>
+nmap <Leader>gmm :Gmerge origin/master<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gw :Gwrite<CR>
+nmap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gdh :diffget //2<CR>
+nnoremap <Leader>gdl :diffget //3<CR>
+
+" Plug markdown-preview
+nmap <Leader>md <Plug>MarkdownPreviewToggle
+
+function! OpenMarkdownPreview(url)
+    silent execute "!chromium --app=" . a:url
+endfunction
+" a custom vim function name to open preview page
+" this function will receive url as param
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
+
+" Mappings
 map Y y$
-nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 nnoremap <leader><C-e> :e ~/.config/nvim/init.vim<cr>
-nnoremap <leader><C-r> :e ~/.config/nvim/ginit.vim<cr>
-nnoremap <Leader>uu :up<CR>
-tnoremap <c-t> <c-\><c-n>
-tmap <c-^> <c-t><c-^>
-augroup vimrc
-    autocmd!
-    autocmd TermOpen * setlocal foldcolumn=0 number relativenumber
-    autocmd TermOpen * startinsert
-    autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
-    " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-    " autocmd FileType * call LC_maps()
-    autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
-    autocmd BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
-    autocmd FileType which_key set laststatus=0 noshowmode noruler foldcolumn=0
-        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler foldcolumn=4
-    autocmd FileType fzf set nonu nornu
-    " TODO make it save only files with names or save them automatically to a
-    " temp dir; also save on buf leave (most probably)
-    " autocmd CursorHold,CursorHoldI * update
-augroup END
+nnoremap <leader><C-s> :CocConfig<cr>
+nnoremap <leader><C-l> :CocLocalConfig<cr>
+nnoremap <Leader>ss :up<CR>
 
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -176,218 +175,207 @@ nnoremap <A-e> <C-w>=
 nnoremap <A-o> :only<cr>
 nnoremap <A-r> <C-w>r
 
-"Plugin 'auto-pairs'
-let g:AutoPairsFlyMode = 1
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 
-"Plugin 'vim-slime'
-let g:slime_target = "neovim"
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
 
-" Plugin 'fzf.vim'
-nmap <Leader>fb :Buffers<CR>
-nmap <Leader>/  :BLines<CR>
-nmap <Leader>fg :GFiles<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>fs :GFiles?<CR>
-nmap <Leader>fc :Rg<cr>class (<Left>
-nmap <Leader>fd :Rg<cr>def (<Left>
-nmap <Leader>fr :Rg<cr>
-nmap <Leader>mk :Marks<CR>
-nmap <Leader>mp :Maps<CR>
-nmap <Leader>fcd :Commands<CR>
-nmap <Leader>fct :Commits<CR>
-nmap <Leader>fhc :History:<CR>
-nmap <Leader>fhs :History/<CR>
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <Leader>lw :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
-inoremap <C-s> <Esc>gUiw`]a
+vnoremap <leader>lv :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <leader>lv :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 
-" Plugin 'vimwiki'
-let g:vimwiki_list = [{'auto_tags': 1}]
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList grep '.word
+endfunction
 
-" Plugin 'vim-test'
-let test#strategy = "dispatch"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Plugin 'autohighlight'
-set updatetime=500
-highlight clear CursorAutoHighlight
-highlight CursorAutoHighlight guibg=purple1
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" Plugin 'tagbar'
-let g:tagbar_left = 1
-let g:tagbar_autoclose = 1
-nmap <Leader>t :TagbarToggle<CR>
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" Plugin 'vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
-" " Plugin 'LanguageClient-neovim'
-" let g:LanguageClient_serverCommands = {
-"     \ 'python': ['pyls'],
-"     \ }
-" function! LC_maps()
-"     if has_key(g:LanguageClient_serverCommands, &filetype)
-"         nnoremap <buffer> <F5> :call LanguageClient_contextMenu()<CR>
-"         nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-"         nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"         nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-"         nnoremap <buffer> <Leader>y :call LanguageClient#textDocument_formatting()<CR>
-"     endif
-" endfunction
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Plugin 'nvim-lsp'
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+" TODO: fix this mapping or replacewith plugin's mapping
+nmap <silent> gf <Plug>(coc-references)
 
-augroup lspautocmd
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <space>t  <Plug>(coc-format-selected)
+nmap <space>t  <Plug>(coc-format-selected)
+
+augroup vimrc
     autocmd!
-    " Use LSP omni-completion in Python files.
-    autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+    autocmd TermOpen * setlocal foldcolumn=0 number relativenumber
+    autocmd TermOpen * startinsert
+    autocmd BufEnter,BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+    " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    " autocmd FileType * call LC_maps()
+    autocmd BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+    autocmd BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
+    autocmd FileType which_key set laststatus=0 noshowmode noruler foldcolumn=0
+        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler foldcolumn=4
+    " autocmd FileType fzf set nonu nornu
+    " TODO make it save only files with names or save them automatically to a
+    " temp dir; also save on buf leave (most probably)
+    " autocmd CursorHold,CursorHoldI * update
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
-" Plugin 'vim-fugitive'
-nmap <Leader>gc :Gcommit<CR>
-nmap <Leader>gd :Gdiff<CR>
-nmap <Leader>gp :Gpush<CR>
-nmap <Leader>gf :Gfetch<CR>
-nmap <Leader>gmm :Gmerge origin/master<CR>
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gw :Gwrite<CR>
-nmap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gdh :diffget //2<CR>
-nnoremap <Leader>gdl :diffget //3<CR>
+" " Plugin 'fzf.vim'
+" nmap <Leader>fb :Buffers<CR>
+" nmap <Leader>/  :BLines<CR>
+" nmap <Leader>fg :GFiles<CR>
+" nmap <Leader>ff :Files<CR>
+" nmap <Leader>fs :GFiles?<CR>
+" nmap <Leader>fc :Rg<cr>class :<Left>
+" nmap <Leader>fd :Rg<cr>def (<Left>
+" nmap <Leader>fr :Rg<cr>
+" nmap <Leader>mk :Marks<CR>
+" nmap <Leader>mp :Maps<CR>
+" nmap <Leader>fcd :Commands<CR>
+" nmap <Leader>fct :Commits<CR>
+" nmap <Leader>fhc :History:<CR>
+" nmap <Leader>fhs :History/<CR>
 
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" TODO escape regex special characters
-nnoremap <Leader>qh :chistory<CR>
-nnoremap <Leader>qn :cnewer<CR>
-nnoremap <Leader>qN :colder<CR>
-nnoremap <Leader>qg :grep ""<Left>
-nnoremap <Leader>qp :grep -g "**/*.py" ""<Left>
-nnoremap <Leader>qw "yyiw:grep "\b<C-R>y\b"<CR>:copen<CR>
-nnoremap <Leader>qa "yyiw:grep "<C-R>y"<CR>:copen<CR>
-vnoremap <Leader>qa "yy:grep "<C-R>y"<CR>:copen<CR>
-nnoremap <Leader>qq :cc<CR>
-nnoremap <Leader>qo :copen<CR>
-nnoremap <Leader>qc :cclose<CR>
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
-nnoremap <Leader>lh :lhistory<CR>
-nnoremap <Leader>ln :lnewer<CR>
-nnoremap <Leader>lN :lolder<CR>
-nnoremap <Leader>lg :lgrep ""<Left>
-nnoremap <Leader>lp :lgrep -g "**/*.py" ""<Left>
-nnoremap <Leader>lw "yyiw:lgrep "\b<C-R>y\b"<CR>:lopen<CR>
-nnoremap <Leader>la "yyiw:lgrep "<C-R>y"<CR>:lopen<CR>
-vnoremap <Leader>la "yy:lgrep "<C-R>y"<CR>:lopen<CR>
-nnoremap <Leader>ll :ll<CR>
-nnoremap <Leader>lo :lopen<CR>
-nnoremap <Leader>lc :lclose<CR>
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
-" TODO fix regex for the ) & ] cases
-call textobj#user#plugin('url', {
-\   'url': {
-\     'pattern': 'https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*',
-\     'select': ['au', 'iu'],
-\   },
-\ })
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
-function! OpenUrl()
-    normal "9yau
-    execute '!qutebrowser ' . shellescape(getreg('9'))
-endfunction
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
-nnoremap <Leader>ol :silent call OpenUrl()<CR>
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-nnoremap <Leader>uf :execute ":normal [pfw<Leader>cb"<CR>
-nnoremap <Leader>uc :execute ":normal [pcw<Leader>cb"<CR>
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" grep for pattern in vim's args
-function! GrepArgs(pattern)
-    exe "grep \"" .  a:pattern . "\"" join(argv(), " ")
-endfunction
-command! -nargs=1 GrepArgs call GrepArgs(<args>)
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-command! InsertSha256Sum read !head -n100 /dev/random | sha256sum | cut -f1 -d" "
+nmap <space>e :CocCommand explorer<CR>
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>l  :<C-u>CocList<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+nnoremap <silent> <space>b  :<C-u>CocList buffers<CR>
+nnoremap <silent> <space>/  :<C-u>CocList lines<CR>
+nnoremap <silent> <space>f  :<C-u>CocList files<CR>
 
-" Django 1.7 upgrade
-" {% cycle row1,row2 %} -> {% cycle 'row1' 'row2' %}
-function! FixCycleTag()
-    let n = 1
-    let s:pattern = '{% cycle \(\(\w\+,\?\)\+\) %}'
-    while n <= argc()
-        exe "argument " . n
-        " start at the last char in the file and wrap for the
-        " first search to find match at start of file
-        normal G$
-        let flags = "w"
-        while search(s:pattern, flags) > 0
-            let s:line = getline('.')
-            let s:matches = matchlist(s:line, s:pattern)
-            let s:init_args = split(s:matches[1], ',')
-            call map(s:init_args, '"''" . v:val . "''"')
-            let s:result_args = join(s:init_args, ' ')
-            call setline('.', substitute(s:line, s:matches[0], '{% cycle ' . s:result_args . ' %}', ""))
-            let flags = "W"
-        endwhile
-        update
-        let n = n + 1
-    endwhile
-endfunction
+" " TODO confirm that it's actually working
+" function! OpfuncSteady()
+"   if !empty(&operatorfunc)
+"     call winrestview(w:opfuncview)
+"     unlet w:opfuncview
+"     noautocmd set operatorfunc=
+"   endif
+" endfunction
 
-" Define prefix dictionary
-let g:which_key_map =  {}
-
-" Second level dictionaries:
-" 'name' is a special field. It will define the name of the group, e.g., leader-f is the "+file" group.
-" Unnamed groups will show a default empty string.
-
-" =======================================================
-" Create menus based on existing mappings
-" =======================================================
-" You can pass a descriptive text to an existing mapping.
-
-" let g:which_key_map.f = { 'name' : '+fzf' }
-" let g:which_key_map.f.g = 'git-files'
-" let g:which_key_map.f.f = 'all-files'
-
-let g:which_key_map.f = { 'name' : '+fzf' }
-let g:which_key_map.f.g = 'git-files'
-let g:which_key_map.f.f = 'all-files'
-
-let g:which_key_map.l = { 'name' : '+location-grep' }
-let g:which_key_map.l.a = 'cursor-all'
-let g:which_key_map.l.w = 'cursor-word'
-let g:which_key_map.l.p = 'prompt-python'
-let g:which_key_map.l.g = 'prompt-all'
-
-let g:which_key_map.g = { 'name' : '+git' }
-
-lua << EOF
-require'nvim_lsp'.pyls.setup{
-  cmd = { "pipenv", "run", "pyls" }
-}
-require'nvim_lsp'.dartls.setup{
-    cmd = { "dart", "/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp" }
-}
-EOF
-
-" Plug markdown-preview
-nmap <Leader>md <Plug>MarkdownPreviewToggle
-
-function! OpenMarkdownPreview(url)
-    silent execute "!chromium --app=" . a:url
-endfunction
-" a custom vim function name to open preview page
-" this function will receive url as param
-let g:mkdp_browserfunc = 'OpenMarkdownPreview'
-" set to 1, the nvim will auto close current preview window when change
-" from markdown buffer to another buffer
-" default: 1
-let g:mkdp_auto_close = 0
+" augroup OpfuncSteady
+"   autocmd!
+"   autocmd OptionSet operatorfunc let w:opfuncview = winsaveview()
+"   autocmd CursorMoved * call OpfuncSteady()
+" augroup END

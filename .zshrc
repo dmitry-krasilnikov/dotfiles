@@ -47,20 +47,21 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/share/antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen theme denysdovhan/spaceship-prompt
 antigen apply
 
 # User configuration
 
-export PATH=~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/:~/.cargo/bin/
+export PATH=~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR=vim
 else
-  export EDITOR='nvim'
+  export EDITOR=nvim
 fi
 
 # Compilation flags
@@ -89,7 +90,6 @@ alias drive_sync_dry='rclone -n --include-from .rclone_include --exclude "*" syn
 alias drive_sync='rclone --include-from .rclone_include --exclude "*" sync /home/fox drive:backup'
 
 alias vi=nvim
-alias cvi='nvim -u ~/.config/nvim/coc-init.vim'
 
 awkp() {
     awk 'NR=='$1'{print $'$2'}'
@@ -213,15 +213,19 @@ alias dmi="docker-machine ip"
 alias dhs=docker-host-set
 alias dhu=docker-host-unset
 
-alias ls="ls -lh --color"
+alias ls="/usr/bin/exa -lh"
+alias cat="/usr/bin/bat -p"
+alias less="/usr/bin/bat"
+alias grep="/usr/bin/rg"
+alias du="~/.cargo/bin/dust"
 
 # Alternative (blocks terminal for 0-3ms)
-cat ~/.cache/wal/sequences
-source ~/.cache/wal/colors.sh
-if [[ ! -v DISPLAY ]]
-then
-    wal -R
-fi
+# cat ~/.cache/wal/sequences
+# source ~/.cache/wal/colors.sh
+# if [[ ! -v DISPLAY ]]
+# then
+#     wal -R
+# fi
 
 autoload -U zmv
 
@@ -254,3 +258,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# pip aliases
+alias pui="pip install --user"
+alias puuo="pip list --user --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --user -U"

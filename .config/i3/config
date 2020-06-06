@@ -58,7 +58,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindcode $mod+36 exec i3-sensible-terminal
-bindcode $mod+36 exec alacritty
+bindcode $mod+36 exec kitty
 
 # kill focused window
 bindcode $mod+Shift+24 kill
