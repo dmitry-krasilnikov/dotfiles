@@ -35,6 +35,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
+;; Use 'projectile-discover-projects-in-search-path' function to index the projects
+(setq projectile-project-search-path '("~/Development/"))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
