@@ -52,7 +52,7 @@ antigen apply
 
 # User configuration
 
-export PATH=~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
+# export PATH=~/.emacs.d/bin:~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -88,8 +88,10 @@ bindkey -M isearch '^[' accept-search
 
 alias drive_sync_dry='rclone -n --include-from .rclone_include --exclude "*" sync /home/fox drive:backup'
 alias drive_sync='rclone --include-from .rclone_include --exclude "*" sync /home/fox drive:backup'
+alias open='xdg-open'
 
 alias vi=nvim
+alias em='emacs -nw'
 
 awkp() {
     awk 'NR=='$1'{print $'$2'}'
@@ -214,7 +216,6 @@ alias dhs=docker-host-set
 alias dhu=docker-host-unset
 
 alias ls="/usr/bin/exa -lh"
-alias cat="/usr/bin/bat -p"
 alias less="/usr/bin/bat"
 alias grep="/usr/bin/rg"
 alias du="~/.cargo/bin/dust"
@@ -261,3 +262,18 @@ unset __conda_setup
 # pip aliases
 alias pui="pip install --user"
 alias puuo="pip list --user --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --user -U"
+
+alias ms="./manage.py shell"
+alias mr="./manage.py runserver 0:9000"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/vault vault
+
+alias cal="cal -mn3"
+
+eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#if command -v pyenv 1>/dev/null 2>&1; then
+#  eval "$(pyenv init -)"
+#fi

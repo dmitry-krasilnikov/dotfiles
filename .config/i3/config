@@ -181,8 +181,8 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always setxkbmap -layout us,us,ru -variant colemak,basic,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps
-exec_always xcape -t 200
+#exec_always setxkbmap -layout us,no,ru -variant colemak,colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps
+exec_always xcape -t 200 -e 'Control_L=Escape'
 
 set $mode_execute Open caStero, iPython, firefoX, neoVim, Nmtui, pulseMixer, Qutebrowser, Ranger
 mode "$mode_execute" {

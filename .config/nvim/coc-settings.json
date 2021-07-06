@@ -11,5 +11,9 @@
         ["expanded?", "collapse", "expand"],
         "open"
         ]
-    }
+    },
+    "cSpell.userWords": [
+      "pytest",
+      "spreedly"
+    ]
 }

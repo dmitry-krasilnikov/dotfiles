@@ -1,11 +1,9 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'vimwiki/vimwiki'
-" Plug 'junegunn/fzf'
-" Plug 'junegunn/fzf.vim'
-" Plug 'dylanaraps/wal.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-repeat'
+Plug 'inkarkat/vim-visualrepeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -17,8 +15,16 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/graphviz.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'chrisbra/Colorizer'
-Plug 'axelf4/vim-strip-trailing-whitespace'
+" Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'sainnhe/sonokai'
+Plug 'Yggdroot/indentLine'
+Plug 'AlphaMycelium/pathfinder.vim'
+" Plug 'takac/vim-hardtime'
+Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'Konfekt/vim-CtrlXA'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 set termguicolors
@@ -69,10 +75,16 @@ set signcolumn=yes
 let g:sonokai_style = 'maia'
 let g:sonokai_enable_italic = 1
 " let g:sonokai_disable_italic_comment = 1
-let g:sonokai_transparent_background = 1
+let g:sonokai_transparent_background = 0
 colorscheme sonokai
 
 let g:airline_theme = 'sonokai'
+
+" " Plugin 'vim-pandoc'
+" let g:pandoc#spell#default_langs = ['en', 'no']
+
+" Plugin 'vim-hardtime'
+let g:hardtime_default_on = 1
 
 " Plugin 'vimwiki'
 let g:vimwiki_list = [{'auto_tags': 1}]
@@ -110,6 +122,9 @@ let g:mkdp_auto_close = 0
 
 " Mappings
 map Y y$
+
+inoremap <C-s> <Esc>gUiw`]a
+
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
@@ -175,6 +190,22 @@ nnoremap <A-e> <C-w>=
 nnoremap <A-o> :only<cr>
 nnoremap <A-r> <C-w>r
 
+" set ripgrep as external grep tool
+set grepprg=rg\ --vimgrep\ -S\ $*
+set grepformat=%f:%l:%c:%m
+
+nnoremap <Leader>ll :ll<CR>
+nnoremap <Leader>lo :lopen<CR>
+nnoremap <Leader>lc :lclose<CR>
+nnoremap <Leader>lh :lhistory<CR>
+nnoremap <Leader>ln :lnewer<CR>
+nnoremap <Leader>lN :lolder<CR>
+nnoremap <Leader>lg :lgrep ""<Left>
+nnoremap <Leader>lp :lgrep -g "**/*.py" ""<Left>
+nnoremap <Leader>lw "yyiw:lgrep "\b<C-R>y\b"<CR>:lopen<CR>
+nnoremap <Leader>la "yyiw:lgrep "<C-R>y"<CR>:lopen<CR>
+vnoremap <Leader>la "yy:lgrep "<C-R>y"<CR>:lopen<CR>
+
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 
@@ -185,7 +216,9 @@ function! s:GrepArgs(...)
 endfunction
 
 " Keymapping for grep word under cursor with interactive mode
-nnoremap <silent> <Leader>lw :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+" nnoremap <silent> <Leader>lw :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <silent> <Leader>lf :exe 'CocList -I --input='.expand('%:t:r').' grep'<CR>
+nnoremap <silent> <space>gf :exe 'CocList --input='.expand('<cword>').' files'<CR>
 
 vnoremap <leader>lv :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <leader>lv :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
@@ -253,9 +286,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -283,6 +313,8 @@ augroup vimrc
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder.
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
 " " Plugin 'fzf.vim'
@@ -360,10 +392,13 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>l  :<C-u>CocList<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+nnoremap <silent> <space>g  :<C-u>CocList -I grep -ignorecase -smartcase<CR>
 nnoremap <silent> <space>b  :<C-u>CocList buffers<CR>
 nnoremap <silent> <space>/  :<C-u>CocList lines<CR>
 nnoremap <silent> <space>f  :<C-u>CocList files<CR>
+nnoremap <silent> <space>v  :<C-u>CocList vimcommands<CR>
+nnoremap <silent> <space>m  :<C-u>CocList maps<CR>
+nnoremap <silent> <space>r  :<C-u>CocList mru<CR>
 
 " " TODO confirm that it's actually working
 " function! OpfuncSteady()
@@ -379,3 +414,40 @@ nnoremap <silent> <space>f  :<C-u>CocList files<CR>
 "   autocmd OptionSet operatorfunc let w:opfuncview = winsaveview()
 "   autocmd CursorMoved * call OpfuncSteady()
 " augroup END
+
+augroup yank_restore_cursor
+    autocmd!
+    autocmd VimEnter,CursorMoved *
+        \ let s:cursor = getpos('.')
+    autocmd TextYankPost *
+        \ if v:event.operator ==? 'y' |
+            \ call setpos('.', s:cursor) |
+        \ endif
+augroup END
+
+" ugly workaround for code review for now
+" 1. use 'git mr origin <MR_number>'
+" 2. open any project file in Vim do 'Git difftool origin/master...HEAD'
+"    after that quickfix will be filled with changes locs
+" 3. issue 'Gdiffsplit origin/master' in every file, use ]c [c to jump between
+"    hunks, issue 'dq' before leaping to the next change
+" NOTE: this whole thing can be automated, but there's an issue with quickfix,
+" it stores every hunk, which is inconvenient, I'll need to find a way how to
+" jump between files
+
+" NOTE: this one does not work as expected
+" command! -nargs=? Greview call s:greview(<f-args>)
+" function! s:greview(...)
+"   split
+"   execute 'Git! diff --diff-filter=AM ' . get(a:, 1, 'origin/master')
+"   setlocal buftype=nofile bufhidden=wipe noswapfile
+"   setlocal foldmethod=syntax foldtext=fugitive#Foldtext()
+" endfunction
+
+command! GetLocation call s:GetLocation() "Get cursor location as 'filepath:linenum:colnum'
+function! s:GetLocation()
+    let l:curpos = getcurpos()
+    let l:location = @% . ':' . l:curpos[1] . ':' . l:curpos[2]
+    let @" = l:location
+    let @+ = l:location
+endfunction
