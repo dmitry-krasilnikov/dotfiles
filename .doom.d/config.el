@@ -38,6 +38,9 @@
 ;; Use 'projectile-discover-projects-in-search-path' function to index the projects
 (setq projectile-project-search-path '("~/Development/"))
 
+;; For python
+(add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
