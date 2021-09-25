@@ -18,7 +18,7 @@ Plug 'chrisbra/Colorizer'
 " Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'sainnhe/sonokai'
 Plug 'Yggdroot/indentLine'
-Plug 'AlphaMycelium/pathfinder.vim'
+"Plug 'AlphaMycelium/pathfinder.vim'
 " Plug 'takac/vim-hardtime'
 Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'vim-pandoc/vim-pandoc'
