@@ -1,0 +1,19 @@
+{
+    "python.formatting.provider": "yapf",
+    "python.venvFolders": ["~/.cache/pypoetry/virtualenvs"],
+    "explorer.icon.enableNerdfont": true,
+    "explorer.toggle": true,
+    "explorer.width": 35,
+    "explorer.previewAction.onHover": false,
+    "explorer.keyMappings": {
+        "<cr>": [
+        "expandable?",
+        ["expanded?", "collapse", "expand"],
+        "open"
+        ]
+    },
+    "cSpell.userWords": [
+      "pytest",
+      "spreedly"
+    ]
+}
