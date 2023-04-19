@@ -2,6 +2,7 @@
 export ZSH=/usr/share/oh-my-zsh
 export ZSH_CUSTOM=~/.oh-my-zsh
 export ZSH_CACHE_DIR=~/.cache/zsh
+export DIFFPROG=/usr/bin/nvim
 
 setopt histignorealldups
 
@@ -40,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(systemd docker docker-compose autojump archlinux git vi-mode globalias)
+plugins=(systemd docker docker-compose archlinux git vi-mode globalias)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,6 +54,7 @@ antigen apply
 # User configuration
 
 # export PATH=~/.emacs.d/bin:~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
+export PATH=~/.cargo/bin:$PATH
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -97,7 +99,7 @@ awkp() {
     awk 'NR=='$1'{print $'$2'}'
 }
 
-alias dps='docker ps'
+alias dps='sudo docker ps'
 
 dex() {
     local DCMD
@@ -109,12 +111,12 @@ dex() {
         DCMD=$2
     fi
 
-    docker exec -it $(dps | rg $1 | head -n1 | cut -f1 -d' ') $DCMD
+    sudo docker exec -it $(dps | rg $1 | head -n1 | cut -f1 -d' ') $DCMD
 }
 
 dpr() {
-    docker rm $(docker ps -a -q) || \
-    docker rmi $(docker images --quiet --filter "dangling=true")
+    sudo docker rm $(sudo docker ps -a -q) || \
+    sudo docker rmi $(sudo docker images --quiet --filter "dangling=true")
 }
 
 _has() {
@@ -202,12 +204,12 @@ docker-host-set() {
     fi
 }
 
-alias ds="docker service"
-alias dsp="docker service ps"
-alias dsu="docker service update"
-alias dsl="docker service ls"
-alias dslg="docker service logs"
-alias dsi="docker service inspect --pretty"
+alias ds="sudo docker service"
+alias dsp="sudo docker service ps"
+alias dsu="sudo docker service update"
+alias dsl="sudo docker service ls"
+alias dslg="sudo docker service logs"
+alias dsi="sudo docker service inspect --pretty"
 
 alias dm="docker-machine"
 alias dms="docker-machine --native-ssh ssh"
