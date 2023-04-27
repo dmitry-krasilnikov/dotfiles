@@ -2,8 +2,11 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# Dependencies:
+#  - xorg-apps
+
 # Set colors from Xresources
-# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# Change 'color7' and 'color2' to whatever colors you want i3 to use
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
@@ -41,7 +44,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Helvetica Neue, FontAwesome 11
- 
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -56,11 +59,10 @@ font pango:Helvetica Neue, FontAwesome 11
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-# bindcode $mod+36 exec i3-sensible-terminal
-bindcode $mod+36 exec kitty
+# start a terminal with Mod+Enter
+bindcode $mod+36 exec alacritty
 
-# kill focused window
+# kill focused window with Mod+Shift+q
 bindcode $mod+Shift+24 kill
 
 # rofi
@@ -181,8 +183,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-#exec_always setxkbmap -layout us,no,ru -variant colemak,colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps
+# set up keyboard layouts and options
+# options are added to the previous list of options
+exec_always setxkbmap -layout us,ru -variant colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps,compose:rctrl
+# use control as escape on key press
 exec_always xcape -t 200 -e 'Control_L=Escape'
+
+# touchpad configuration
+# enable natural scroll
+exec_always xinput set-prop 15 281 1
+# enable tapping
+exec_always xinput set-prop 15 308 1
 
 set $mode_execute Open caStero, iPython, firefoX, neoVim, Nmtui, pulseMixer, Qutebrowser, Ranger
 mode "$mode_execute" {
@@ -218,7 +229,8 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+Pause mode "$mode_system"
+# enter system mode with Mod+Shift+s
+bindcode $mod+Shift+40 mode "$mode_system"
 
 # TODO fix switching on i3 reloading
 bindsym $mod+Shift+c exec "~/.bin/picom.sh toggle &"
@@ -234,4 +246,4 @@ bindsym --release Shift+Print exec "scrot -s '%d-%m-%Y-%s_screenshot_$wx$h.jpg' 
 bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg &"
 
 exec_always --no-startup-id $HOME/.bin/polybar.sh
-exec_always --no-startup-id $HOME/.bin/xbanish.sh $mod
+exec_always --no-startup-id $HOME/.bin/unclutter.sh

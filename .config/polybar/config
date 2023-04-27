@@ -266,10 +266,11 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
+; TODO: fetch adapter and battery names using `ls -1 /sys/class/power_supply/`
 [module/battery]
 type = internal/battery
-battery = BAT1
-adapter = ACAD
+battery = BAT0
+adapter = ADP0
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
