@@ -5,6 +5,7 @@
 # Dependencies:
 #  - xorg-apps
 #  - xcape
+#  - redshift
 
 # Set colors from Xresources
 # Change 'color7' and 'color2' to whatever colors you want i3 to use
@@ -248,3 +249,4 @@ bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e '
 
 exec_always --no-startup-id $HOME/.bin/polybar.sh
 exec_always --no-startup-id $HOME/.bin/unclutter.sh
+exec_always --no-startup-id killall -qw redshift; redshift &
