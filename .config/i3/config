@@ -202,15 +202,12 @@ mode "$mode_execute" {
 }
 
 bindsym $mod+o mode "$mode_execute"
-# only .png pictures allowed
-set $Locker i3lock -euti "$(cat ~/.cache/wal/wal)" && sleep 1
 
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
+    # bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
@@ -241,3 +238,5 @@ bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e '
 exec_always --no-startup-id $HOME/.bin/polybar.sh
 exec_always --no-startup-id $HOME/.bin/unclutter.sh
 exec_always --no-startup-id killall -qw redshift; redshift &
+# only .png pictures allowed
+exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -euti "$(cat ~/.cache/wal/wal)" &
