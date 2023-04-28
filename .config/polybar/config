@@ -103,8 +103,6 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
-mount-1 = /home
-mount-2 = /var/lib/docker
 
 label-mounted =  %mountpoint%%{F-} %free%
 label-unmounted =  %mountpoint% not mounted
