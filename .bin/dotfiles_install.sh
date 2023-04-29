@@ -25,4 +25,5 @@ paru -S xorg-apps \
         todoman \
         python-click-repl \  # optional for todoman
         alacritty \
-        wezterm
+        wezterm \
+        dust

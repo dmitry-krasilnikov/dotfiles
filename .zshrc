@@ -22,7 +22,7 @@ HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -53,7 +53,6 @@ antigen apply
 
 # User configuration
 
-# export PATH=~/.emacs.d/bin:~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
 export PATH=~/.cargo/bin:$PATH
 
 # You may need to manually set your language environment
@@ -141,10 +140,6 @@ nwc() {
 alias xc="xclip -r -selection clipboard"
 [ -f ~/.fzf.colors ] && source ~/.fzf.colors
 
-alias yu="yay -Suy"
-alias ys="yay -Ss"
-alias yi="yay -S"
-
 gpg-key-to-paper() {
     if [[ -z "$1" ]]; then
         echo "Specify key name as a parameter (email is fine)"
@@ -220,15 +215,9 @@ alias dhu=docker-host-unset
 alias ls="/usr/bin/exa -lh"
 alias less="/usr/bin/bat"
 alias grep="/usr/bin/rg"
-alias du="~/.cargo/bin/dust"
+alias du="/usr/bin/dust"
 
-# Alternative (blocks terminal for 0-3ms)
-# cat ~/.cache/wal/sequences
-# source ~/.cache/wal/colors.sh
-# if [[ ! -v DISPLAY ]]
-# then
-#     wal -R
-# fi
+alias wal-theme="wal -stl --theme "
 
 autoload -U zmv
 
@@ -250,17 +239,9 @@ alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias pui="pip install --user"
 alias puuo="pip list --user --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --user -U"
 
-alias ms="./manage.py shell"
-alias mr="./manage.py runserver 0:9000"
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
 
 alias cal="cal -mn3"
 
 eval "$(pyenv init -)"
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init -)"
-#fi
