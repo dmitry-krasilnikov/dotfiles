@@ -235,8 +235,11 @@ bindsym Print exec scrot -u '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/scree
 bindsym --release Shift+Print exec "scrot -s '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg &"
 bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg &"
 
+set $wallpaper ~/.config/wallpapers/current.png
 exec_always --no-startup-id $HOME/.bin/polybar.sh
 exec_always --no-startup-id $HOME/.bin/unclutter.sh
 exec_always --no-startup-id killall -qw redshift; redshift &
+exec_always --no-startup-id feh --bg-fill $wallpaper
 # only .png pictures allowed
-exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -euti "$(cat ~/.cache/wal/wal)" &
+# consider this scaling approach https://github.com/i3/i3lock/issues/81#issuecomment-999721698
+exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -eui $wallpaper &
