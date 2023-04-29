@@ -26,4 +26,5 @@ paru -S xorg-apps \
         python-click-repl \  # optional for todoman
         alacritty \
         wezterm \
-        dust
+        dust \
+        dunst

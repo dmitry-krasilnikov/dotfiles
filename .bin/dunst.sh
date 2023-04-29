@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. $HOME/.cache/wal/colors.sh
+. "$HOME/.cache/wal/colors.sh"
 
 # Terminate already running bar instances
 killall -qw dunst
