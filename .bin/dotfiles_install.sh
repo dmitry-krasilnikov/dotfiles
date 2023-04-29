@@ -1,5 +1,6 @@
 #!/bin/env zsh
 
+# TODO: try out i3status-rust
 paru -S xorg-apps \
         xcape \
         redshift \
@@ -8,7 +9,7 @@ paru -S xorg-apps \
         xss-lock \
         htop \
         strace \
-        python-wal \
+        python-pywal \
         lazygit \
         pulsemixer \
         scrot \
@@ -20,10 +21,9 @@ paru -S xorg-apps \
         rofi \
         ttf-font-awesome \
         i3-wm \
-        # i3status-rust \  # TODO: try it out some time
         ttf-hack-nerd \
         todoman \
-        python-click-repl \  # optional for todoman
+        python-click-repl \
         alacritty \
         wezterm \
         dust \
