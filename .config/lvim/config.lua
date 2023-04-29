@@ -96,6 +96,16 @@ lvim.builtin.treesitter.auto_install = true
 -- -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
 lvim.plugins = {
   {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup({
+        variant = "dawn",
+      })
+      lvim.colorscheme = "rose-pine"
+    end,
+  },
+  {
     "zbirenbaum/copilot-cmp",
     event = "InsertEnter",
     dependencies = { "zbirenbaum/copilot.lua" },
