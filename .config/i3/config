@@ -238,3 +238,4 @@ exec_always --no-startup-id feh --bg-fill $wallpaper
 # consider this scaling approach https://github.com/i3/i3lock/issues/81#issuecomment-999721698
 exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -eui $wallpaper &
 exec_always --no-startup-id killall -qw picom; picom --daemon --config ~/.config/picom.conf
+exec_always --no-startup-id killall -qw unclutter; unclutter --timeout 1 --start-hidden --fork
