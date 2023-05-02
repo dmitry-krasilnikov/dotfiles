@@ -5,6 +5,7 @@ paru -S xorg-apps \
         xcape \
         redshift \
         autorandr \
+        arandr \
         zsh-completions \
         xss-lock \
         htop \
@@ -27,4 +28,5 @@ paru -S xorg-apps \
         alacritty \
         wezterm \
         dust \
-        dunst
+        dunst \
+        picom

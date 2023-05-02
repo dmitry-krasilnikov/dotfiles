@@ -25,9 +25,6 @@ client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
 
-# start compositor
-exec_always --no-startup-id "~/.bin/picom.sh &"
-
 exec_always --no-startup-id "~/.bin/dunst.sh &"
 
 exec_always --no-startup-id "dropbox &"
@@ -219,9 +216,6 @@ mode "$mode_system" {
 # enter system mode with Mod+Shift+s
 bindcode $mod+Shift+40 mode "$mode_system"
 
-# TODO fix switching on i3 reloading
-bindsym $mod+Shift+c exec "~/.bin/picom.sh toggle &"
-
 # bind up & down arrows to brightness control
 bindcode $mod+Shift+116 exec "xbacklight -dec 10"
 bindcode $mod+Shift+111 exec "xbacklight -inc 10"
@@ -243,3 +237,4 @@ exec_always --no-startup-id feh --bg-fill $wallpaper
 # only .png pictures allowed
 # consider this scaling approach https://github.com/i3/i3lock/issues/81#issuecomment-999721698
 exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -eui $wallpaper &
+exec_always --no-startup-id killall -qw picom; picom --daemon --config ~/.config/picom.conf
