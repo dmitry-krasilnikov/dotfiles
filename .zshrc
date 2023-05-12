@@ -255,3 +255,6 @@ complete -o nospace -C /usr/bin/vault vault
 alias cal="cal -mn3"
 
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+eval "$(direnv hook zsh)"
