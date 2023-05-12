@@ -6,6 +6,16 @@ export DIFFPROG=/usr/bin/nvim
 
 setopt histignorealldups
 
+# Specify directory where to search for user defined functions & completions.
+fpath=(
+  ~/.oh-my-zsh/functions
+  ~/.oh-my-zsh/completions
+  "${fpath[@]}"
+)
+
+# Autoload user defined functions
+autoload -Uz copy_terminfo_over_ssh
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each

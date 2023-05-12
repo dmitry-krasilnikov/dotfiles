@@ -1,0 +1,6 @@
+# Some hosts do not have certain terminals' info in their database.
+# One of the examples of not-that-popular terminal would be Alacritty.
+# When terminal misbehaves over an SSH connection just execute this function once
+# providing the host name in question. Autocompletion of host names supported.
+
+infocmp | ssh $1 'tic -x /dev/stdin'
