@@ -74,17 +74,30 @@ bindsym $mod+m exec i3-input -P "mark: " -F "mark %s"
 # 48 - apostrophe
 bindcode $mod+48 exec i3-input -P "goto mark: " -F "[con_mark=\"%s\"] focus"
 
-# change focus
+# change focus:
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+## alternatively, you can use the cursor keys:
+bindcode $mod+113 focus left
+bindcode $mod+116 focus down
+bindcode $mod+111 focus up
+bindcode $mod+114 focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+# TODO: figure out new mappings for volume & backlight
+# ## alternatively, you can use the cursor keys:
+# bindcode $mod+Shift+113 focus left
+# bindcode $mod+Shift+116 focus down
+# bindcode $mod+Shift+111 focus up
+# bindcode $mod+Shift+114 focus right
 
 # split in horizontal orientation
 bindsym $mod+z split h
@@ -138,8 +151,8 @@ bindcode $mod+Shift+19 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+i reload
-# r: restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindcode $mod+Shift+39 restart
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindcode $mod+Shift+26 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # bindcode $mod+Shift+26 exec "i3-msg exit"
@@ -170,11 +183,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# set up keyboard layouts and options
-# options are added to the previous list of options
-exec_always setxkbmap -layout us,ru -variant colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps,compose:rctrl
-# use control as escape on key press
-exec_always xcape -t 200 -e 'Control_L=Escape'
+# TODO: figure how to set up config for built-in keeb while keeping Ferris' configuration intact
+# # set up keyboard layouts and options
+# # options are added to the previous list of options
+# exec_always setxkbmap -layout us,ru -variant colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps,compose:rctrl
+# # use control as escape on key press
+# exec_always xcape -t 200 -e 'Control_L=Escape'
 
 # touchpad configuration
 # enable natural scroll
