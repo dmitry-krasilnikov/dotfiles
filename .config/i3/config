@@ -187,7 +187,8 @@ bindsym $mod+r mode "resize"
 # # set up keyboard layouts and options
 # # options are added to the previous list of options
 # exec_always setxkbmap -layout us,ru -variant colemak,winkeys -option grp:alt_shift_toggle,ctrl:swapcaps,compose:rctrl
-exec_always setxkbmap -layout us -option compose:ralt
+# exec_always setxkbmap -layout us -option compose:ralt
+exec_always test -f ~/.Xkeymap && xkbcomp ~/.Xkeymap $DISPLAY
 # # use control as escape on key press
 # exec_always xcape -t 200 -e 'Control_L=Escape'
 
