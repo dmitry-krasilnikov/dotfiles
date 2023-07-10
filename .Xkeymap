@@ -1442,7 +1442,9 @@ xkb_symbols "pc+us+inet(evdev)" {
         type= "PC_ALT_LEVEL2",
         symbols[Group1]= [           Print,         Sys_Req ]
     };
-    key <RALT> {         [           ISO_Level3_Shift,          Meta_R ] };
+
+    include "level3(ralt_switch)"
+
     key <LNFD> {         [        Linefeed ] };
     key <HOME> {         [            Home ] };
     key   <UP> {         [              Up ] };
@@ -1586,7 +1588,6 @@ xkb_symbols "pc+us+inet(evdev)" {
     modifier_map Mod2 { <NMLK> };
     modifier_map Mod5 { <LVL3> };
     modifier_map Control { <RCTL> };
-    modifier_map Mod1 { <RALT> };
     modifier_map Mod4 { <LWIN> };
     modifier_map Mod4 { <RWIN> };
     modifier_map Mod3 { <LVL5> };
