@@ -113,10 +113,10 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+d layout toggle splith splitv tabbed
 
-# toggle tiling / floating
+# toggle tiling / floating with mod+Shift+Spacebar
 bindcode $mod+Shift+65 floating toggle
 
-# change focus between tiling / floating windows
+# change focus between tiling / floating windows with mod+Spacebar
 bindcode $mod+65 focus mode_toggle
 
 # focus the parent container
