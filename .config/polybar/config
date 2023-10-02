@@ -16,14 +16,12 @@
 ;
 ;==========================================================
 
-# 直睊ﬀ
-
 include-file = ~/.cache/wal/colors-polybar.ini
 
 [bar/top]
 monitor = ${env:MONITOR:}
 width = 100%
-height = 27
+height = 3%
 fixed-center = false
 
 background = ${colors.background}
@@ -59,7 +57,7 @@ cursor-scroll = ns-resize
 [bar/bottom]
 monitor = ${env:MONITOR:}
 width = 100%
-height = 27
+height = 3%
 fixed-center = false
 bottom = true
 
@@ -79,11 +77,9 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = Hack Nerd Font:size=12;2
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
 
 modules-left = filesystem
-modules-right = temperature memory cpu pulseaudio vpn-eme wlan battery
+modules-right = temperature memory cpu pulseaudio wlan battery
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -207,11 +203,11 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp8s0
+interface = wlp0s20f3
 interval = 3.0
-format-connected = 直 <label-connected>
+format-connected = 󰖩 <label-connected>
 label-connected = %essid%
-format-disconnected = 睊
+format-disconnected = 󱚼
 
 [module/eth]
 type = internal/network
@@ -235,10 +231,10 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = " %B %d %A"
+date = "󰃭 %B %d %A"
 date-alt =
 
-time = " %H:%M"
+time = " %H:%M"
 time-alt = %H:%M:%S
 
 label = %date% %time%
@@ -250,7 +246,7 @@ format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted =  muted
+label-muted =  
 label-muted-foreground = #666
 
 ramp-volume-0 = 
@@ -268,45 +264,35 @@ format-charging = <animation-charging> <label-charging>
 
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-full-prefix = " "
+format-full-prefix = "󰁹 "
 format-full-prefix-foreground = ${colors.foreground}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-5 = 
-ramp-capacity-6 = 
-ramp-capacity-7 = 
-ramp-capacity-8 = 
-ramp-capacity-9 = 
-ramp-capacity-10 = 
+ramp-capacity-0 = 󰂎
+ramp-capacity-1 = 󰁺
+ramp-capacity-2 = 󰁻
+ramp-capacity-3 = 󰁼
+ramp-capacity-4 = 󰁽
+ramp-capacity-5 = 󰁾
+ramp-capacity-6 = 󰁿
+ramp-capacity-7 = 󰂀
+ramp-capacity-8 = 󰂁
+ramp-capacity-9 = 󰂂
+# ramp-capacity-10 = 󰁹
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-5 = 
-animation-charging-6 = 
+animation-charging-0 = 󰢟
+animation-charging-1 = 󰢜
+animation-charging-2 = 󰂆
+animation-charging-3 = 󰂇
+animation-charging-4 = 󰂈
+animation-charging-5 = 󰢝
+animation-charging-6 = 󰂉
+animation-charging-7 = 󰢞
+animation-charging-8 = 󰂊
+animation-charging-9 = 󰂋
+animation-charging-10 = 󰂅
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-animation-discharging-5 = 
-animation-discharging-6 = 
-animation-discharging-7 = 
-animation-discharging-8 = 
-animation-discharging-9 = 
-animation-discharging-10 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
