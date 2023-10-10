@@ -298,6 +298,8 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ['<PageUp>'] = 'preview_scrolling_up',
+        ['<PageDown>'] = 'preview_scrolling_down',
       },
     },
   },
