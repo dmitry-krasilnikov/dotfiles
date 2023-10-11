@@ -486,6 +486,9 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   rust_analyzer = {},
+  pylsp = {},
+  -- ruff_lsp = {},
+  -- pylyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
