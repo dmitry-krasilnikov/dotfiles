@@ -486,7 +486,13 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   rust_analyzer = {},
-  pylsp = {},
+  pylsp = {
+    pylsp = {
+      plugins = {
+        flake8 = { enabled = true },
+      },
+    },
+  },
   -- ruff_lsp = {},
   -- pylyzer = {},
   -- tsserver = {},
