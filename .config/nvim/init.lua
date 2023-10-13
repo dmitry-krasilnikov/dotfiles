@@ -314,6 +314,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local trouble = require("trouble.providers.telescope")
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -322,6 +323,10 @@ require('telescope').setup {
         ['<C-d>'] = false,
         ['<PageUp>'] = 'preview_scrolling_up',
         ['<PageDown>'] = 'preview_scrolling_down',
+        ["<c-t>"] = trouble.open_with_trouble,
+      },
+      n = {
+        ["<c-t>"] = trouble.open_with_trouble
       },
     },
   },
@@ -482,6 +487,7 @@ require('which-key').register({
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+  ['<leader>x'] = { name = 'Trouble', _ = 'which_key_ignore' },
 })
 
 -- Enable the following language servers
@@ -596,8 +602,12 @@ cmp.setup {
   },
 }
 
--- TODO: consider adding LSP and Python venv to statusline
--- TODO: make nvim skip )]} in insert mode (?)
+vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = 'Toggle dock' })
+vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, { desc = '[W]orkspace diagnostics' })
+vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, { desc = '[D]ocument diagnostics' })
+vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, { desc = '[Q]uickfix (not working)' })
+vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end, { desc = '[L]ocallist (not working)' })
+vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = '[R]eferences' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
