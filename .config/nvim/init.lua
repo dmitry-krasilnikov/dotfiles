@@ -145,11 +145,11 @@ require('lazy').setup({
   },
 
   {
-    'rose-pine/neovim',
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
     priority = 1000,
-    name = 'rose-pine-dawn',
     config = function()
-      vim.cmd.colorscheme 'rose-pine-dawn'
+      vim.cmd.colorscheme 'onedark'
     end,
   },
 
@@ -159,6 +159,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
+        theme = 'onedark',
         component_separators = '|',
         section_separators = '',
       },
