@@ -486,10 +486,15 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   rust_analyzer = {},
+  -- TODO: try phpstan as linter
+  intelephense = {},
   pylsp = {
     pylsp = {
       plugins = {
         flake8 = { enabled = true },
+        -- TODO: use linting & formatting plugings to manage linting/formatting separately
+        autopep8 = { enabled = false },
+        yapf = { enabled = false },
       },
     },
   },
