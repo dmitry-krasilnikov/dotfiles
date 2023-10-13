@@ -257,4 +257,13 @@ alias cal="cal -mn3"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 eval "$(direnv hook zsh)"
+
+alias blc="bluetoothctl"
+alias blcc="bluetoothctl connect"
+alias blcd="bluetoothctl disconnect"
+alias blcs="bluetoothctl devices Connected"
