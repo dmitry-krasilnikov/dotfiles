@@ -253,8 +253,9 @@ require('lazy').setup({
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
+-- Make relative line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -509,6 +510,7 @@ local servers = {
     pylsp = {
       plugins = {
         flake8 = { enabled = true },
+        pycodestyle = { maxLineLength = 100 },
         -- TODO: use linting & formatting plugings to manage linting/formatting separately
         autopep8 = { enabled = false },
         yapf = { enabled = false },
