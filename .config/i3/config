@@ -32,9 +32,6 @@ exec_always --no-startup-id "dropbox &"
 # (No) Title Bars
 for_window [class="^.*"] border pixel 0
 
-# Gaps
-gaps inner 8
-smart_gaps inverse_outer
 mouse_warping none
 focus_follows_mouse no
 
