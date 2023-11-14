@@ -509,8 +509,9 @@ local servers = {
   pylsp = {
     pylsp = {
       plugins = {
-        flake8 = { enabled = true },
-        pycodestyle = { maxLineLength = 100 },
+        flake8 = { enabled = true, maxLineLength = 120 },
+        pycodestyle = { enabled = false },
+        pyflakes = { enabled = false },
         -- TODO: use linting & formatting plugings to manage linting/formatting separately
         autopep8 = { enabled = false },
         yapf = { enabled = false },
