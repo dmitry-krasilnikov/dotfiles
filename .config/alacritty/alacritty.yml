@@ -1,5 +1,5 @@
 import:
-  - ~/.cache/wal/colors-alacritty.yml
+  - ~/.config/alacritty/themes/rose-pine-dawn.yml
 
 font:
   size: 9.0
