@@ -252,7 +252,7 @@ alias puuo="pip list --user --outdated --format=freeze | grep -v '^\-e' | cut -d
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
 
-alias cal="cal -mn3"
+alias cal="cal -mn3 -w"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
