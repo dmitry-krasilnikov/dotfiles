@@ -195,14 +195,13 @@ exec_always xinput set-prop 15 281 1
 # enable tapping
 exec_always xinput set-prop 15 308 1
 
-set $mode_execute Open caStero, iPython, firefoX, neoVim, Nmtui, pulseMixer, Qutebrowser, Ranger
+set $mode_execute Open caStero, iPython, firefoX, neoVim, Nmtui, Qutebrowser, Ranger
 mode "$mode_execute" {
     bindsym s exec st -e castero, mode "default"
     bindsym p exec st -e ipython, mode "default"
     bindsym x exec firefox, mode "default"
     bindsym v exec st -e nvim, mode "default"
     bindsym n exec st -e nmtui, mode "default"
-    bindsym m exec st -e pulsemixer, mode "default"
     bindsym q exec qutebrowser, mode "default"
     bindsym r exec st -e ranger, mode "default"
 
@@ -234,8 +233,10 @@ bindcode $mod+Shift+116 exec "xbacklight -dec 10"
 bindcode $mod+Shift+111 exec "xbacklight -inc 10"
 
 # bind left & right arrows to volume control
-bindcode $mod+Shift+113 exec "pulsemixer --change-volume -5"
-bindcode $mod+Shift+114 exec "pulsemixer --change-volume +5"
+bindcode $mod+Shift+113 exec "pamixer --decrease 5"
+bindcode $mod+Shift+114 exec "pamixer --increase 5"
+# bind m key to mute/unmute
+bindcode $mod+Shift+58 exec "pamixer --default-source --toggle-mute"
 
 # screenshots
 bindsym Print exec scrot -u '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg

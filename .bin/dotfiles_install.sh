@@ -12,7 +12,7 @@ paru -S xorg-apps \
         strace \
         python-pywal \
         lazygit \
-        pulsemixer \
+        pamixer \
         scrot \
         feh \
         unclutter \
