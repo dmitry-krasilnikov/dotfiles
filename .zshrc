@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/usr/share/oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export ZSH_CUSTOM=~/.oh-my-zsh
 export ZSH_CACHE_DIR=~/.cache/zsh
 export DIFFPROG=/usr/bin/nvim
@@ -55,7 +55,7 @@ plugins=(systemd docker docker-compose archlinux git vi-mode globalias)
 
 source $ZSH/oh-my-zsh.sh
 
-source /usr/share/zsh/share/antigen.zsh
+source .antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme denysdovhan/spaceship-prompt
@@ -222,10 +222,17 @@ alias dmi="docker-machine ip"
 alias dhs=docker-host-set
 alias dhu=docker-host-unset
 
-alias ls="/usr/bin/exa -lh"
-alias less="/usr/bin/bat"
-alias grep="/usr/bin/rg"
-alias du="/usr/bin/dust"
+alias ls="exa -lh"
+if which -s batcat > /dev/null; then
+    alias cat="batcat"
+elif which -s bat > /dev/null; then
+    alias cat="bat"
+fi
+if which -s fdfind > /dev/null; then
+    alias fd="fdfind"
+fi
+alias grep="rg"
+alias du="dust"
 
 alias wal-theme="wal -stl --theme "
 
