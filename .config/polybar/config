@@ -16,7 +16,7 @@
 ;
 ;==========================================================
 
-include-file = ~/.cache/wal/colors-polybar.ini
+include-file = ~/.config/polybar/themes/rose-pine/rose-pine-dawn.ini
 
 [bar/top]
 monitor = ${env:MONITOR:}
