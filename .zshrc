@@ -55,7 +55,7 @@ plugins=(systemd docker docker-compose archlinux git vi-mode globalias)
 
 source $ZSH/oh-my-zsh.sh
 
-source .antigen.zsh
+source ~/.antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme denysdovhan/spaceship-prompt
@@ -63,7 +63,7 @@ antigen apply
 
 # User configuration
 
-export PATH=~/.cargo/bin:$PATH
+export PATH=~/.cargo/bin:$(go env GOPATH)/bin:$PATH
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
