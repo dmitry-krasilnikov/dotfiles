@@ -524,6 +524,7 @@ local servers = {
   pylsp = {
     pylsp = {
       plugins = {
+        rope_autoimport = { enabled = true },
         flake8 = { enabled = true, maxLineLength = 120 },
         pycodestyle = { enabled = false },
         pyflakes = { enabled = false },
@@ -533,6 +534,9 @@ local servers = {
       },
     },
   },
+  dockerls = {},
+  docker_compose_language_service = {},
+  lemminx = {},
   -- ruff_lsp = {},
   -- pylyzer = {},
   -- tsserver = {},
@@ -641,6 +645,10 @@ require("aerial").setup({
       { buffer = bufnr, desc = '[D]ocument [O]verview' })
   end,
 })
+
+function copyRelativePathOfCurrentFile()
+  vim.fn.setreg("+", "./" .. (vim.fn.fnamemodify(vim.fn.expand("%"), ":.")))
+end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
