@@ -89,6 +89,12 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+## alternatively, you can use the cursor keys:
+bindcode $mod+Shift+113 move left
+bindcode $mod+Shift+116 move down
+bindcode $mod+Shift+111 move up
+bindcode $mod+Shift+114 move right
+
 # TODO: figure out new mappings for volume & backlight
 # ## alternatively, you can use the cursor keys:
 # bindcode $mod+Shift+113 focus left
@@ -230,12 +236,12 @@ mode "$mode_system" {
 bindsym $mod+Shift+s mode "$mode_system"
 
 # bind up & down arrows to brightness control
-bindcode $mod+Shift+116 exec "xbacklight -dec 10"
-bindcode $mod+Shift+111 exec "xbacklight -inc 10"
+bindcode $mod+Ctrl+116 exec "xbacklight -dec 10"
+bindcode $mod+Ctrl+111 exec "xbacklight -inc 10"
 
 # bind left & right arrows to volume control
-bindcode $mod+Shift+113 exec "pulsemixer --change-volume -5"
-bindcode $mod+Shift+114 exec "pulsemixer --change-volume +5"
+bindcode $mod+Ctrl+113 exec "pulsemixer --change-volume -5"
+bindcode $mod+Ctrl+114 exec "pulsemixer --change-volume +5"
 
 # screenshots
 bindsym Print exec scrot -u '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/ && cat ~/screenshots/$f' | xclip -selection clipboard -t image/jpg
