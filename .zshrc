@@ -51,7 +51,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(systemd docker docker-compose archlinux git vi-mode globalias)
+plugins=(systemd docker docker-compose archlinux git vi-mode globalias zsh-fzf-history-search)
 
 source $ZSH/oh-my-zsh.sh
 
