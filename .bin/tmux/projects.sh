@@ -6,4 +6,4 @@ else
         FD=fd
 fi
 
-$FD --unrestricted '\.git$' --search-path ~ -x echo '{//}' | rg -v '/\.' | rg '^.*/(.*)$' -r '$0 $1' | fzf --delimiter=' ' --with-nth=1 --bind 'enter:execute-silent(tmux new-window -c {1} -n {2})+abort'
+$FD --unrestricted '\.git$' --search-path ~ -x echo '{//}' | rg -v '/\.' | rg '^.*/(.*)$' -r '$0 $1' | fzf --delimiter=' ' --with-nth=1 --bind 'enter:execute-silent(tmux new-window -c {1} -n {2} ~/.bin/tmux/setup_project.sh)+abort'
