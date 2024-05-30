@@ -198,6 +198,25 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+set $system System: (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$system" {
+    # TODO: add logout if required
+    # TODO: mute mic and speaker, maybe?
+    # bind 'l'
+    bindcode 46 exec --no-startup-id "loginctl lock-session", mode "default"
+    # bind 's'
+    bindcode 39 exec --no-startup-id "systemctl suspend", mode "default"
+    # bind 'r'
+    bindcode 27 exec --no-startup-id "systemctl reboot", mode "default"
+    # bind 'Shift+s'
+    bindcode Shift+39 exec --no-startup-id "systemctl poweroff -i", mode "default"
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+s mode "$system"
+
 # control brightness
 bindcode 232 exec "brightnessctl set 10%-"
 bindcode 233 exec "brightnessctl set 10%+"
