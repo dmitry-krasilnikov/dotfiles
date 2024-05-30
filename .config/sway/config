@@ -217,6 +217,9 @@ mode "$system" {
 }
 bindsym $mod+Shift+s mode "$system"
 
+# control do not disturb mode
+bindcode 174 exec "swaync-client --toggle-dnd"
+
 # control brightness
 bindcode 232 exec "brightnessctl set 10%-"
 bindcode 233 exec "brightnessctl set 10%+"
