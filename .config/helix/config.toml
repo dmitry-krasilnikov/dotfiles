@@ -1,0 +1,15 @@
+theme = "catppuccin_latte"
+
+[editor]
+auto-format = true
+line-number = "relative"
+workspace-lsp-roots = [".git"]
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.smart-tab]
+supersede-menu = true
