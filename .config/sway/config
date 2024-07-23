@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term wezterm
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -61,6 +61,8 @@ exec swayidle -w \
 seat * hide_cursor when-typing enable
 
 ### Key bindings
+#
+# Note: `wev` is an analog of `xev` and can be used for identifying keycodes and keysyms.
 #
 # Basics:
 #
@@ -218,7 +220,7 @@ mode "$system" {
 bindsym $mod+Shift+s mode "$system"
 
 # control do not disturb mode
-bindcode 174 exec "swaync-client --toggle-dnd"
+bindsym XF86AudioStop exec "swaync-client --toggle-dnd"
 
 # control brightness
 bindcode 232 exec "brightnessctl set 10%-"
