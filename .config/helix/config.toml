@@ -13,3 +13,7 @@ enable = true
 
 [editor.smart-tab]
 supersede-menu = true
+
+[keys.normal]
+V = { b = ":git-blame-line" }
+Y = "yank_joined"
