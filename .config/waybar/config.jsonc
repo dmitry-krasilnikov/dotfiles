@@ -17,6 +17,7 @@
     ],
     "modules-right": [
         "mpd",
+        "custom/notification",
         "idle_inhibitor",
         "pulseaudio",
         "network",
@@ -108,8 +109,8 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%Y-%m-%d %H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
         "format": "{usage}% ",
@@ -211,5 +212,26 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+    },
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{} {icon}",
+      "format-icons": {
+        "notification": "󱅫",
+        "none": "",
+        "dnd-notification": " ",
+        "dnd-none": "󰂛",
+        "inhibited-notification": " ",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": " ",
+        "dnd-inhibited-none": " ",
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      // sleep is supposedly required to make waybar work while notification center is open
+      "on-click": "sleep 0.1 && swaync-client -d -sw",
+      "on-click-right": "sleep 0.1 && swaync-client -t -sw",
+      "escape": true,
     }
 }
