@@ -50,10 +50,16 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_variant colemak_dh_ortho
 }
 
+input "1739:52839:SYNA800E:00_06CB:CE67_Touchpad" {
+    natural_scroll enabled
+}
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
 seat * hide_cursor when-typing enable
+
+default_border pixel 2
 
 ### Key bindings
 #
@@ -198,20 +204,20 @@ bindsym $mod+r mode "resize"
 set $system System: (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$system" {
     # TODO: add logout if required
-    # TODO: mute mic and speaker, maybe?
     # bind 'l'
-    bindcode 46 exec --no-startup-id "loginctl lock-session", mode "default"
+    bindsym l exec --no-startup-id "loginctl lock-session", mode "default"
     # bind 's'
-    bindcode 39 exec --no-startup-id "systemctl suspend", mode "default"
+    bindsym s exec --no-startup-id "systemctl suspend", mode "default"
     # bind 'r'
-    bindcode 27 exec --no-startup-id "systemctl reboot", mode "default"
+    bindsym r exec --no-startup-id "systemctl reboot", mode "default"
     # bind 'Shift+s'
-    bindcode Shift+39 exec --no-startup-id "systemctl poweroff -i", mode "default"
+    bindsym Shift+s exec --no-startup-id "systemctl poweroff -i", mode "default"
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+# bind '$mod+Shift+s'
 bindsym $mod+Shift+s mode "$system"
 
 # control do not disturb mode
@@ -238,17 +244,7 @@ bindsym $mod+Ctrl+1 exec 1password --quick-access
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*
