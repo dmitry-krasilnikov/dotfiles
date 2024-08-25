@@ -20,6 +20,7 @@
         "custom/notification",
         "idle_inhibitor",
         "pulseaudio",
+        // "wireplumber",
         "bluetooth",
         "network",
         "power-profiles-daemon",
@@ -123,6 +124,12 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
+    // "wireplumber": {
+    //     "format": "{volume}% {icon}",
+    //     "format-muted": "",
+    //     "on-click": "helvum",
+    //     "format-icons": ["", "", ""]
+    // },
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
