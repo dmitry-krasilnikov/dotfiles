@@ -33,6 +33,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
+### Start notification daemon
+exec swaync
+
 ### Idle configuration
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
@@ -220,8 +223,8 @@ mode "$system" {
 # bind '$mod+Shift+s'
 bindsym $mod+Shift+s mode "$system"
 
-# control do not disturb mode
-bindsym XF86AudioStop exec "swaync-client --toggle-dnd"
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 # control brightness
 bindcode 232 exec "brightnessctl set 10%-"
