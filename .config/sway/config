@@ -246,6 +246,18 @@ bindcode 198 exec "pamixer --default-source --toggle-mute"
 bindsym $mod+Ctrl+1 exec 1password --quick-access
 
 #
+# Screenshots:
+#
+# Current window
+bindsym Mod4+p exec grimshot copy active
+# Select area
+bindsym Mod4+Shift+p exec grimshot copy area
+# Current output
+bindsym Mod4+Mod1+p exec grimshot copy output
+# Select a window
+bindsym Mod4+Ctrl+p exec grimshot copy window
+
+#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
