@@ -39,6 +39,9 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 ### Start notification daemon
 exec swaync
 
+### Start cliphist
+exec wl-paste --watch cliphist store
+
 ### Idle configuration
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
@@ -249,13 +252,17 @@ bindsym $mod+Ctrl+1 exec 1password --quick-access
 # Screenshots:
 #
 # Current window
-bindsym Mod4+p exec grimshot copy active
+bindsym $mod+p exec grimshot copy active
 # Select area
-bindsym Mod4+Shift+p exec grimshot copy area
+bindsym $mod+Shift+p exec grimshot copy area
 # Current output
-bindsym Mod4+Mod1+p exec grimshot copy output
+bindsym $mod+Mod1+p exec grimshot copy output
 # Select a window
-bindsym Mod4+Ctrl+p exec grimshot copy window
+bindsym $mod+Ctrl+p exec grimshot copy window
+
+# Clipboard history bindings
+bindsym $mod+i exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy
+bindsym $mod+Shift+i exec cliphist list | wofi -S dmenu | cliphist delete
 
 #
 # Status Bar:
