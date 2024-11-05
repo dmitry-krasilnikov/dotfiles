@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+faker -l "$1" iban | tr -d '\n'
