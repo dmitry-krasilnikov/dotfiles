@@ -56,7 +56,7 @@ font pango:Helvetica Neue, FontAwesome 11
 floating_modifier $mod
 
 # start a terminal with Mod+Enter
-bindcode $mod+36 exec alacritty
+bindcode $mod+36 exec wezterm
 
 # kill focused window with Mod+Shift+q
 bindcode $mod+Shift+24 kill
@@ -245,11 +245,12 @@ bindsym --release Ctrl+Print exec "scrot '%d-%m-%Y-%s_screenshot_$wx$h.jpg' -e '
 
 set $wallpaper ~/.config/wallpapers/current.png
 exec_always --no-startup-id $HOME/.bin/polybar.sh
-exec_always --no-startup-id $HOME/.bin/unclutter.sh
 exec_always --no-startup-id killall -qw redshift; redshift &
 exec_always --no-startup-id feh --bg-fill $wallpaper
 # only .png pictures allowed
 # consider this scaling approach https://github.com/i3/i3lock/issues/81#issuecomment-999721698
 exec_always --no-startup-id killall -qw xss-lock; xss-lock --transfer-sleep-lock -- i3lock --nofork -eui $wallpaper &
-exec_always --no-startup-id killall -qw picom; picom --daemon --config ~/.config/picom.conf
-exec_always --no-startup-id killall -qw unclutter; unclutter --timeout 1 --start-hidden --fork
+# exec_always --no-startup-id killall -qw picom; picom --daemon --config ~/.config/picom.conf
+exec_always --no-startup-id killall -qw unclutter; unclutter &
+# Arch version - needs to be scripted away with some smart logic to detect version and/or available flags
+# exec_always --no-startup-id killall -qw unclutter; unclutter --timeout 1 --start-hidden --fork
