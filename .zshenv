@@ -1,4 +1,4 @@
-export PATH=~/.emacs.d/bin:~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
+export PATH=~/.cargo/bin:$(go env GOPATH)/bin:~/.emacs.d/bin:~/.local/bin:~/.bin:$PATH:~/Development/flutter/bin:~/.venv/bin/
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
