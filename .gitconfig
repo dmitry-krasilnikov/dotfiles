@@ -2,8 +2,11 @@
 	email = krasilnikov.d.o@gmail.com
 	name = Dmitriy Krasilnikov
 [core]
-	pager = batcat
+	pager = delta
 	autocrlf = input
+[delta]
+    side-by-side = true
+	line-numbers = true
 [merge]
 	tool = nvim
 [mergetool "nvim"]
