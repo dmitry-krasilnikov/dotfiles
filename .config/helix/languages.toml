@@ -1,3 +1,9 @@
+[[language]]
+name = "xml"
+language-servers = ["lemminx"]
+file-types = ["xml", { glob = "SFPA*" }]
+auto-format = true
+
 [language-server.lemminx]
 command = "lemminx-linux"
 
@@ -16,9 +22,3 @@ pyflakes = {enabled = false}
 pylint = {enabled = false}
 yapf = {enabled = false}
 ruff = {enabled = false}
-
-[[language]]
-name = "xml"
-language-servers = ["lemminx"]
-file-types = ["xml", { glob = "SFPA*" }]
-auto-format = true
