@@ -1,4 +1,8 @@
 [[language]]
+name = "php"
+auto-format = true
+
+[[language]]
 name = "xml"
 language-servers = ["lemminx"]
 file-types = ["xml", { glob = "SFPA*" }]
@@ -22,3 +26,13 @@ pyflakes = {enabled = false}
 pylint = {enabled = false}
 yapf = {enabled = false}
 ruff = {enabled = false}
+
+[[language]]
+name = "rust"
+
+[language-server.rust-analyzer]
+config = { procMacro = { ignored = { leptos_macro = [
+    # Optional:
+    # "component",
+    "server"
+] } } }
