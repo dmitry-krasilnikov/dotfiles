@@ -33,6 +33,10 @@ source aliases/git/git-aliases.nu
 $env.LS_COLORS = (vivid generate rose-pine-dawn)
 source themes/nu-themes/rose-pine-dawn.nu
 
+# Nix completions and useful commands
+source custom-completions/nix/nix-completions.nu
+source modules/nix/nix.nu
+
 # Debian specific aliases
 alias cat = batcat
 alias fd = fdfind
