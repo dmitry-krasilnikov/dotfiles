@@ -2,7 +2,7 @@ $env.config.show_banner = false
 $env.config.edit_mode = "vi"
 $env.config.completions.algorithm = "fuzzy"
 
-const NU_LIB_DIRS = $NU_LIB_DIRS ++ [ "/nix/store/xl12dmwabr1d1jfmk36pqnr6d4hq2mwd-nu_scripts-0-unstable-2025-02-28/share/nu_scripts" ]
+const NU_LIB_DIRS = $NU_LIB_DIRS ++ [ "~/.nix-profile/share/nu_scripts" ]
 
 $env.PATH = [ "/nix/var/nix/profiles/default/bin", "~/.nix-profile/bin", "~/.bin", "~/.local/bin", "~/.cargo/bin", "~/go/bin" ] ++ $env.PATH
 $env.PAGER = "batcat"
