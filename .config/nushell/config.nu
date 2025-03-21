@@ -37,8 +37,14 @@ source themes/nu-themes/rose-pine-dawn.nu
 source custom-completions/nix/nix-completions.nu
 source modules/nix/nix.nu
 
+# Docker aliases and completions
+source aliases/docker/docker-aliases.nu
+source custom-completions/docker/docker-completions.nu
+
 # Debian specific aliases
+alias bat = batcat
 alias cat = batcat
+alias less = batcat
 alias fd = fdfind
 
 # Aliases to manage dot files
