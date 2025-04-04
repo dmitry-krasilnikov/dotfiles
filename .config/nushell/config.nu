@@ -23,10 +23,6 @@ def --env p [] {
   cd (fdfind --unrestricted '\.git$' --search-path ~ -x echo '{//}' | fzf)
 }
 
-# $env.config.hooks.env_change = {
-#     PWD: [{|before, after| source nu-hooks/nu-hooks/direnv/config.nu }]
-# }
-
 $env.config.hooks.pre_prompt = (
   # TODO: figure out how to dynamically get the path
   # There's a command: `nix eval nixpkgs#nu_scripts.outPath` which gives the path
