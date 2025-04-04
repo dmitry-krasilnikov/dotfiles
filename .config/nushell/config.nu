@@ -4,8 +4,15 @@ $env.config.completions.algorithm = "fuzzy"
 
 const NU_LIB_DIRS = $NU_LIB_DIRS ++ [ "~/.nix-profile/share/nu_scripts" ]
 
-$env.PATH = [ "/nix/var/nix/profiles/default/bin", "~/.nix-profile/bin", "~/.bin", "~/.local/bin", "~/.cargo/bin", "~/go/bin" ] ++ $env.PATH
+const NU_PLUGIN_DIRS = [
+  ($nu.current-exe | path dirname)
+  ($nu.data-dir | path join 'plugins' | path join (version).version)
+  ($nu.config-path | path dirname | path join 'plugins')
+]
+
+$env.PATH = [ "/nix/var/nix/profiles/default/bin", "~/.nix-profile/bin", "~/.bin", "~/.local/bin", "~/go/bin" ] ++ $env.PATH
 $env.PAGER = "batcat"
+$env.PSPG_CONF = '~/.config/pspg/config.ini'
 
 let editor = "hx"
 $env.config.buffer_editor = $editor
@@ -40,6 +47,9 @@ source modules/nix/nix.nu
 # Docker aliases and completions
 source aliases/docker/docker-aliases.nu
 source custom-completions/docker/docker-completions.nu
+
+# RipGrep
+source custom-completions/rg/rg-completions.nu
 
 # Debian specific aliases
 alias bat = batcat
