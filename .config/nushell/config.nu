@@ -5,6 +5,7 @@ $env.config.completions.algorithm = "fuzzy"
 const NU_LIB_DIRS = $NU_LIB_DIRS ++ [ "~/.nix-profile/share/nu_scripts" ]
 
 const NU_PLUGIN_DIRS = [
+  "~/.nix-profile/bin"
   ($nu.current-exe | path dirname)
   ($nu.data-dir | path join 'plugins' | path join (version).version)
   ($nu.config-path | path dirname | path join 'plugins')
@@ -12,6 +13,7 @@ const NU_PLUGIN_DIRS = [
 
 $env.PATH = [ "/nix/var/nix/profiles/default/bin", "~/.nix-profile/bin", "~/.bin", "~/.local/bin", "~/go/bin" ] ++ $env.PATH
 $env.PAGER = "batcat"
+$env.MANPAGER = "batcat --style=plain"
 $env.PSPG_CONF = '~/.config/pspg/config.ini'
 
 let editor = "hx"
@@ -19,7 +21,16 @@ $env.config.buffer_editor = $editor
 $env.VISUAL = $editor
 $env.EDITOR = $editor
 
+# External completions with Carapace
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+# TODO: uncomment when Carapace has been updated to version 1.3.3, other NuShell refuses to work with the generated script
+# NOTE: Carapace completions can become outdated because of the stale cache
+# mkdir ~/.cache/carapace
+# carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+source ~/.cache/carapace/init.nu
+
 # Git
+source custom-completions/git/git-completions.nu
 source aliases/git/git-aliases.nu
 
 # Set colorscheme
@@ -34,8 +45,15 @@ source modules/nix/nix.nu
 source aliases/docker/docker-aliases.nu
 source custom-completions/docker/docker-completions.nu
 
+# K8s
+# source modules/argx/mod.nu
+# source modules/kubernetes/mod.nu
+
 # RipGrep
 source custom-completions/rg/rg-completions.nu
+
+# NuShell command aliases
+alias dc = detect columns
 
 # Debian specific aliases
 alias bat = batcat
@@ -63,3 +81,10 @@ $env.config.hooks.pre_prompt = (
 # Activate Starship
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+
+# TODO: figure out how to separate existing Zsh DB from the NuShell DB because the commands aren't compatible
+# Activate Atuin
+# mkdir ($nu.data-dir | path join "vendor/autoload")
+# atuin init nu | save -f ($nu.data-dir | path join "vendor/autoload/atuin.nu")
+
+source ~/Dev/tool-transactions-scripts/nushell/billogram.nu
